@@ -20,3 +20,55 @@ export const loginUserPending = createAction<IAuthStateContext>(
         }
     )
 );
+
+export const loginUserSuccess = createAction<IAuthStateContext, IUser>(
+    AuthActionEnums.loginUserSuccess, (user: IUser) => (
+        {
+            isPending: false,
+            isSuccess: true,
+            isError: false,
+            user,
+        }
+    )
+);
+
+export const loginUserError = createAction<IAuthStateContext>(
+    AuthActionEnums.loginUserError, () => (
+        {
+            isPending: false,
+            isSuccess: false,
+            isError: true,
+        }
+    )
+);
+
+export const registerUserPending = createAction<IAuthStateContext>(
+    AuthActionEnums.registerUserPending, () => (
+        {
+            isPending: true,
+            isSuccess: false,
+            isError: false
+        }
+    )
+);
+
+export const registerUserSuccess = createAction<IAuthStateContext, IUser>(
+    AuthActionEnums.registerUserSuccess, (user: IUser) => (
+        {
+            isPending: false,
+            isSuccess: true,
+            isError: false,
+            user,
+        }
+    )
+);
+
+export const registerUserError = createAction<IAuthStateContext>(
+    AuthActionEnums.registerUserError, () => (
+        {
+            isPending: false,
+            isSuccess: false,
+            isError: true
+        }
+    )
+);
