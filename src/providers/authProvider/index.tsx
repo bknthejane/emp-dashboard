@@ -49,7 +49,7 @@ export const UserProvider = ({children}: {children: React.ReactNode}) => {
 export const useAuthState = () => {
     const context = useContext(AuthStateContext);
     if (!context) {
-        throw new Error('useAuthState must be used within a AuthProvider');
+        throw new Error('useAuthState must be used within a UserProvider');
     }
 
     return context;
@@ -58,6 +58,6 @@ export const useAuthState = () => {
 export const useAuthActions = () => {
     const context = useContext(AuthActionContext);
     if (!context) {
-        throw new Error('useAuthActions must be used within a AuthProvider');
+        throw new Error('useAuthActions must be used within a UserProvider');
     }
 }
