@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { IUser, IAuthStateContext } from './context';
+import { IUser, IAuthStateContext, IAuthActionContext } from './context';
 
 export enum AuthActionEnums {
     loginUserPending = 'LOGIN_USER_PENDING',
@@ -9,6 +9,7 @@ export enum AuthActionEnums {
     registerUserPending = 'REGISTER_USER_PENDING',
     registerUserSuccess = 'REGISTER_USER_SUCCESS',
     registerUserError = 'REGISTER_USER_ERROR',
+
 }
 
 export const loginUserPending = createAction<IAuthStateContext>(
@@ -30,27 +31,30 @@ export const loginUserSuccess = createAction<IAuthStateContext, IUser>(
             user,
         }
     )
-);
+)
 
 export const loginUserError = createAction<IAuthStateContext>(
     AuthActionEnums.loginUserError, () => (
         {
             isPending: false,
             isSuccess: false,
-            isError: true,
+
+            isError: true
         }
     )
-);
+)
 
 export const registerUserPending = createAction<IAuthStateContext>(
-    AuthActionEnums.registerUserPending, () => (
-        {
-            isPending: true,
-            isSuccess: false,
-            isError: false
-        }
-    )
-);
+    AuthActionEnums.registerUserPending, () =>
+(
+    {
+        isPending: true,
+        isSuccess: false,
+        isError: false
+    }
+
+)
+)
 
 export const registerUserSuccess = createAction<IAuthStateContext, IUser>(
     AuthActionEnums.registerUserSuccess, (user: IUser) => (
@@ -58,10 +62,11 @@ export const registerUserSuccess = createAction<IAuthStateContext, IUser>(
             isPending: false,
             isSuccess: true,
             isError: false,
-            user,
+            user
         }
     )
-);
+)
+
 
 export const registerUserError = createAction<IAuthStateContext>(
     AuthActionEnums.registerUserError, () => (
@@ -71,4 +76,4 @@ export const registerUserError = createAction<IAuthStateContext>(
             isError: true
         }
     )
-);
+)

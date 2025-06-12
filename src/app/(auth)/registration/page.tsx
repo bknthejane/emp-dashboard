@@ -3,23 +3,37 @@ import React from 'react';
 import type { FormProps } from 'antd';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { useStyles } from './style/style';
+import { useUserActions, useUserState } from '@/providers/authProvider';
+import { IUser } from '@/providers/authProvider/context';
 
 
 
 const Registration: React.FC = () => {
     const { styles } = useStyles();
-    type FieldType = {
-        username?: string;
-        email?: string;
-        password?: string;
-        confirmPassword: string
-    };
+    const {registerUser} = useUserActions()
+    const {user, isPending, isSuccess, isError} = useUserState();
 
-    const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+    if(isPending){
+        return( <div>Loading...</div>)
+    }
+    if(isError){
+        return( <div>Error registering user</div>)
+    }
+
+    const onFinish: FormProps<IUser>['onFinish'] = (values) => {
         console.log('Success:', values);
+        const newUser:IUser = {
+            name: values.name,
+            email: values.email,
+            password: values.password,
+            avatar: values.avatar,
+            role: values.role
+        }
+        registerUser(newUser)
+        
     };
 
-    const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
+    const onFinishFailed: FormProps<IUser>['onFinishFailed'] = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
@@ -38,32 +52,39 @@ const Registration: React.FC = () => {
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
                 >
-                    <Form.Item<FieldType>
-                        name="username"
+                    <Form.Item<IUser>
+                        name="name"
                         rules={[{ required: true, message: 'Please input your username!' }]}
                     >
                         <Input placeholder='Enter your username'/>
                     </Form.Item>
 
-                    <Form.Item<FieldType>
+                    <Form.Item<IUser>
                         name="email"
                         rules={[{ required: true, message: 'Please input your email!' }]}
                     >
                         <Input placeholder='Enter your email'/>
                     </Form.Item>
 
-                    <Form.Item<FieldType>
+                    <Form.Item<IUser>
                         name="password"
                         rules={[{ required: true, message: 'Please input your password!' }]}
                     >
                         <Input.Password placeholder='Choose a password'/>
                     </Form.Item>
                     
-                    <Form.Item<FieldType>
-                        name="confirmPassword"
-                        rules={[{ required: true, message: 'Please confirm your password!' }]}
+                    <Form.Item<string>
+                        name="role"
+                        rules={[{ required: true, message: 'Enter role' }]}
                     >
-                        <Input.Password placeholder='Confirm password'/>
+                        <Input placeholder='Role'/>
+                    </Form.Item>
+
+                    <Form.Item<string>
+                        name="avatar"
+                        rules={[{ required: true, message: 'Enter avatar' }]}
+                    >
+                        <Input placeholder='Avatar'/>
                     </Form.Item>
 
                     <Form.Item label={null}>
