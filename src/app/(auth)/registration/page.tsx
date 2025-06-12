@@ -23,13 +23,12 @@ const Registration: React.FC = () => {
     const onFinish: FormProps<IUser>['onFinish'] = (values) => {
         console.log('Success:', values);
         const newUser:IUser = {
-            name: values.name,
+            username: values.username,
             email: values.email,
             password: values.password,
-            avatar: values.avatar,
-            role: values.role
         }
         registerUser(newUser)
+        
         
     };
 
@@ -53,7 +52,7 @@ const Registration: React.FC = () => {
                     autoComplete="off"
                 >
                     <Form.Item<IUser>
-                        name="name"
+                        name="username"
                         rules={[{ required: true, message: 'Please input your username!' }]}
                     >
                         <Input placeholder='Enter your username'/>
@@ -73,20 +72,6 @@ const Registration: React.FC = () => {
                         <Input.Password placeholder='Choose a password'/>
                     </Form.Item>
                     
-                    <Form.Item<string>
-                        name="role"
-                        rules={[{ required: true, message: 'Enter role' }]}
-                    >
-                        <Input placeholder='Role'/>
-                    </Form.Item>
-
-                    <Form.Item<string>
-                        name="avatar"
-                        rules={[{ required: true, message: 'Enter avatar' }]}
-                    >
-                        <Input placeholder='Avatar'/>
-                    </Form.Item>
-
                     <Form.Item label={null}>
                         <Button className={styles.Button} type="primary" htmlType="submit">
                             Submit
