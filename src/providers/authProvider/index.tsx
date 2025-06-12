@@ -1,10 +1,10 @@
 "use client"
-import axios from "axios";
 import { useContext, useReducer } from "react";
 import { axiosInstance } from "@/utils/axiosInstance";
 import { INITIAL_STATE, IUser, AuthStateContext, AuthActionContext } from "./context";
 import { UserReducer } from "./reducer";
 import { loginUserSuccess, loginUserError, loginUserPending, registerUserPending, registerUserSuccess, registerUserError } from "./actions";
+import {jwtDecode} from 'jwt-decode'
 
 
 export const UserProvider = ({children}:{children: React.ReactNode}) => {
@@ -13,10 +13,18 @@ export const UserProvider = ({children}:{children: React.ReactNode}) => {
 
     const loginUser = async(user: IUser) => {
         dispatch(loginUserPending());
-        const endpoint = '/users';
-        await instance.get(endpoint)
-        .then((response) => {
-            
+        const endpoint = '/auth/login';
+        
+        await instance.post(endpoint, user)
+        .then( async (response) => {
+            dispatch(loginUserSuccess(response.data));
+            const token = jwtDecode(response.data.token);
+            console.log(JSON.stringify(token))
+            await instance.get(`/users/${token.sub}`).then((subData) => {
+                localStorage.setItem('UserInfo', JSON.stringify(subData.data))
+            }).catch(error =>{ 
+                console.log(error)
+            })
         })
         .catch(error => {
             console.log(error.message)

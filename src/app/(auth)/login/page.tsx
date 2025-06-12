@@ -3,20 +3,30 @@ import React from 'react';
 import type { FormProps } from 'antd';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { useStyles } from './style/style';
+import { useUserActions, useUserState } from '@/providers/authProvider';
+import { IUser } from '@/providers/authProvider/context';
+import { useRouter } from 'next/navigation';
 
 const Login: React.FC = () => {
     const { styles } = useStyles();
-    type FieldType = {
-        username?: string;
-        password?: string;
-        remember?: string;
-    };
+    const {loginUser} = useUserActions();
+    const {isPending, isSuccess, user} = useUserState();
+    const router = useRouter();
 
-    const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+
+    const onFinish: FormProps<IUser>['onFinish'] = (values) => {
         console.log('Success:', values);
+
+        const userDetails: IUser = {
+            username: values.username,
+            password: values.password
+        }
+
+        loginUser(userDetails);
+        router.push('/')
     };
 
-    const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
+    const onFinishFailed: FormProps<IUser>['onFinishFailed'] = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
@@ -35,7 +45,7 @@ const Login: React.FC = () => {
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
                 >
-                    <Form.Item<FieldType>
+                    <Form.Item<IUser>
                         label="Username"
                         name="username"
                         rules={[{ required: true, message: 'Please input your username!' }]}
@@ -43,7 +53,7 @@ const Login: React.FC = () => {
                         <Input />
                     </Form.Item>
 
-                    <Form.Item<FieldType>
+                    <Form.Item<IUser>
                         label="Password"
                         name="password"
                         rules={[{ required: true, message: 'Please input your password!' }]}
