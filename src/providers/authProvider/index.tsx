@@ -62,4 +62,3 @@ export const useUserActions = () => {
         throw new Error ('useUserState must be used within a UserProvider')
     }
     return context;
-}

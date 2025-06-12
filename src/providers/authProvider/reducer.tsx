@@ -3,6 +3,7 @@ import { INITIAL_STATE, IAuthStateContext } from "./context";
 import { AuthActionEnums } from "./actions";
 
 export const UserReducer = handleActions<IAuthStateContext, IAuthStateContext>({
+
     [AuthActionEnums.loginUserPending]: (state, action) => ({
         ...state,
         ...action.payload,
