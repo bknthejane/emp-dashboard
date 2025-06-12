@@ -1,22 +1,13 @@
 import { createContext } from "react";
 
 export interface IUser {
-    id?: string;
+    id?: number;
     name?: string;
-    email?: string;
-    password?: string;
-}
-
-/* export interface ILogin {
     email: string;
+    role?:string;
+    avatar?: string;
     password: string;
 }
-
-export interface IRegistration {
-    name: string;
-    email: string;
-    password: string;
-} */
 
 export interface IAuthStateContext {
     isPending: boolean;
