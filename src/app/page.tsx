@@ -1,13 +1,22 @@
 "use client"
 export default function Home() {
 
-  /* const user = JSON.parse(localStorage.getItem("UserInfo") || "");
-  console.log(user) */
+const cookies = document.cookie.split(';');
+let userName;
+
+for (const cookie of cookies) {
+  const [name, value] = cookie.trim().split('=');
+  if (name === 'userName') {
+    userName = value;
+    break;
+  }
+}
 
   return (
     <>
       <h1>Homepage</h1>
-      {/* <h1>{user?.username}</h1> */}
+
+      <h1>Name: {userName}</h1>
     </>
   );
 }

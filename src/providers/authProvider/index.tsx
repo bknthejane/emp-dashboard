@@ -6,7 +6,6 @@ import { UserReducer } from "./reducer";
 import { loginUserSuccess, loginUserError, loginUserPending, registerUserPending, registerUserSuccess, registerUserError } from "./actions";
 import {jwtDecode} from 'jwt-decode'
 
-
 export const UserProvider = ({children}:{children: React.ReactNode}) => {
     const [state, dispatch] = useReducer(UserReducer, INITIAL_STATE)
     const instance = axiosInstance();
@@ -18,15 +17,15 @@ export const UserProvider = ({children}:{children: React.ReactNode}) => {
         await instance.post(endpoint, user)
         .then( async (response) => {
             dispatch(loginUserSuccess(response.data));
+            document.cookie = `active=${response.data.token}`
             const token = jwtDecode(response.data.token);
             console.log(JSON.stringify(token))
             await instance.get(`/users/${token.sub}`).then((subData) => {
 
-                const userData = {
-                    username: subData.data.username,
-                    email: subData.data.email,
-                }
-                localStorage.setItem('UserInfo', JSON.stringify(userData))
+                const userData =  subData.data.username;
+                    // email: subData.data.email,
+
+                document.cookie = `userName= ${JSON.stringify(userData)}`
             }).catch(error =>{ 
                 console.log(error)
             })
@@ -49,6 +48,7 @@ export const UserProvider = ({children}:{children: React.ReactNode}) => {
         .catch((error=> {
             console.log(error.response)
             dispatch(registerUserError())
+            console.log(error.message)
         })
     )
     }
