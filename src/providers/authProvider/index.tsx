@@ -21,7 +21,12 @@ export const UserProvider = ({children}:{children: React.ReactNode}) => {
             const token = jwtDecode(response.data.token);
             console.log(JSON.stringify(token))
             await instance.get(`/users/${token.sub}`).then((subData) => {
-                localStorage.setItem('UserInfo', JSON.stringify(subData.data))
+
+                const userData = {
+                    username: subData.data.username,
+                    email: subData.data.email,
+                }
+                localStorage.setItem('UserInfo', JSON.stringify(userData))
             }).catch(error =>{ 
                 console.log(error)
             })
