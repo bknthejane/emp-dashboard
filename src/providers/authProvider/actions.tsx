@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { IUser, IAuthStateContext, IAuthActionContext } from './context';
+import { IUser, IAuthStateContext } from './context';
 
 export enum AuthActionEnums {
     loginUserPending = 'LOGIN_USER_PENDING',

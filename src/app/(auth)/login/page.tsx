@@ -1,16 +1,16 @@
 'use client'
 import React from 'react';
 import type { FormProps } from 'antd';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Form, Input } from 'antd';
 import { useStyles } from './style/style';
-import { useUserActions, useUserState } from '@/providers/authProvider';
+import { useUserActions } from '@/providers/authProvider';
 import { IUser } from '@/providers/authProvider/context';
 import { useRouter } from 'next/navigation';
 
 const Login: React.FC = () => {
     const { styles } = useStyles();
     const {loginUser} = useUserActions();
-    const {isPending, isSuccess, user} = useUserState();
+    // const {isPending, isSuccess, user} = useUserState();
     const router = useRouter();
 
 
