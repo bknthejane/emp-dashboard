@@ -7,7 +7,7 @@ export const axiosInstance = () => {
   const token = Cookies.get("active");
 
     return axios.create({
-    baseURL: `https://fakestoreapi.com`,
+    baseURL: `https://dummyjson.com`,
     headers: {
       "Content-Type": "application/json",
       ...(token && {Authorization: `Bearer ${token}`})

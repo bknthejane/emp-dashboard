@@ -39,13 +39,14 @@ export const UserProvider = ({children}:{children: React.ReactNode}) => {
     const registerUser = async (user: IUser) => {
         dispatch(registerUserPending());
 
-        const endpoint = '/users';
+        const endpoint = '/users/add';
 
         await instance.post(endpoint, user)
         .then((response) => {
             dispatch(registerUserSuccess(response.data))
         })
         .catch((error=> {
+            console.log(error.response)
             dispatch(registerUserError())
             console.log(error.message)
         })

@@ -38,6 +38,7 @@ export const loginUserError = createAction<IAuthStateContext>(
         {
             isPending: false,
             isSuccess: false,
+
             isError: true
         }
     )
@@ -66,6 +67,7 @@ export const registerUserSuccess = createAction<IAuthStateContext, IUser>(
     )
 )
 
+
 export const registerUserError = createAction<IAuthStateContext>(
     AuthActionEnums.registerUserError, () => (
         {
@@ -75,4 +77,3 @@ export const registerUserError = createAction<IAuthStateContext>(
         }
     )
 )
-

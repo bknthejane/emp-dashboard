@@ -11,7 +11,9 @@ import { IUser } from '@/providers/authProvider/context';
 const Registration: React.FC = () => {
     const { styles } = useStyles();
     const {registerUser} = useUserActions()
+
     const {isPending, isError} = useUserState();
+
 
     if(isPending){
         return( <div>Loading...</div>)

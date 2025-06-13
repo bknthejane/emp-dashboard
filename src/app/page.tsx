@@ -12,10 +12,10 @@ for (const cookie of cookies) {
   }
 }
 
-
   return (
     <>
       <h1>Homepage</h1>
+
       <h1>Name: {userName}</h1>
     </>
   );
