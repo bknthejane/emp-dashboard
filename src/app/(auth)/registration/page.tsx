@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import type { FormProps } from 'antd';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Form, Input } from 'antd';
 import { useStyles } from './style/style';
 import { useUserActions, useUserState } from '@/providers/authProvider';
 import { IUser } from '@/providers/authProvider/context';
@@ -11,7 +11,7 @@ import { IUser } from '@/providers/authProvider/context';
 const Registration: React.FC = () => {
     const { styles } = useStyles();
     const {registerUser} = useUserActions()
-    const {user, isPending, isSuccess, isError} = useUserState();
+    const {isPending, isError} = useUserState();
 
     if(isPending){
         return( <div>Loading...</div>)
